@@ -3,7 +3,6 @@ package com.example.vika.weatherapp.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 
 
 import android.support.v4.app.FragmentManager;
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private  Contract.Presenter mActivityPresenter;
     private ProgressBar progressBar;
     private WeatherFragment weatherFragment;
+    private ForecaFragment forecaFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
 
                 if(mActivityPresenter == null){
@@ -106,24 +108,29 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_weather) {
-           fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            weatherFragment = new WeatherFragment();
+        switch(id){
+            case R.id.nav_weather:
+                weatherFragment = new WeatherFragment();
+                fragmentTransaction.add(R.id.container, weatherFragment);
+                fragmentTransaction.commit();
+                break;
+            case R.id.nav_foreca:
+               // forecaFragment = new ForecaFragment();
+              //  fragmentTransaction.replace(R.id.container, forecaFragment);
+               // fragmentTransaction.commit();
+                break;
+            case R.id.nav_sinoptik:
 
-            fragmentTransaction.add(R.id.containerWeather, weatherFragment);
+                break;
+            case R.id.nav_manage:
 
-            fragmentTransaction.commit();
-            // Handle the camera action
-        } else if (id == R.id.nav_foreca) {
+                break;
+            case R.id.nav_share:
 
-        } else if (id == R.id.nav_sinoptik) {
+                break;
+            case R.id.nav_send:
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+                break;
 
         }
 
