@@ -1,12 +1,15 @@
 package com.example.vika.weatherapp.view;
 
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,12 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.vika.weatherapp.R;
 import com.example.vika.weatherapp.contract.Contract;
 import com.example.vika.weatherapp.presenter.MainActivityPresenter;
 
-import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,Contract.View {
@@ -33,9 +36,8 @@ public class MainActivity extends AppCompatActivity
     private ForecaFragment forecaFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
-
-
+    private static final String TAG = "Frag";
+    Class fragmentClass;
 
 
     @Override
@@ -44,13 +46,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.i(TAG,"onCreate");
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
 
-                if(mActivityPresenter == null){
-                       mActivityPresenter = new MainActivityPresenter(this);
-                }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -106,18 +107,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
         int id = item.getItemId();
+        Fragment myFragment = null;
 
         switch(id){
+
             case R.id.nav_weather:
-                weatherFragment = new WeatherFragment();
-                fragmentTransaction.add(R.id.container, weatherFragment);
-                fragmentTransaction.commit();
+                fragmentClass = WeatherFragment.class;
                 break;
             case R.id.nav_foreca:
-               // forecaFragment = new ForecaFragment();
-              //  fragmentTransaction.replace(R.id.container, forecaFragment);
-               // fragmentTransaction.commit();
+                Log.i(TAG,"nav_foreca ");
+                fragmentClass = ForecaFragment.class;
                 break;
             case R.id.nav_sinoptik:
 
@@ -133,6 +134,15 @@ public class MainActivity extends AppCompatActivity
                 break;
 
         }
+
+    try {
+        myFragment = (Fragment)fragmentClass.newInstance();
+    }catch (Exception e){
+            e.printStackTrace();
+    }
+    FragmentManager fm = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+    fragmentTransaction.replace(R.id.container,myFragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

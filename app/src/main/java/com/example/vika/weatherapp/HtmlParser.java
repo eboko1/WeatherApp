@@ -6,11 +6,13 @@ import java.net.URL;
  * Created by Vika on 26.11.2017.
  */
 
-public class Parse {
+public class HtmlParser {
     private URL pUrl;
 
 
-    public Parse(URL url){
+    public HtmlParser(URL url){
         this.pUrl = url;
     }
+
+
 }

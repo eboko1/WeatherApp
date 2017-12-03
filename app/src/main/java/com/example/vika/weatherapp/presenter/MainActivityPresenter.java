@@ -3,7 +3,7 @@ package com.example.vika.weatherapp.presenter;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import com.example.vika.weatherapp.Parse;
+import com.example.vika.weatherapp.HtmlParser;
 import com.example.vika.weatherapp.contract.Contract;
 
 /**
@@ -11,7 +11,7 @@ import com.example.vika.weatherapp.contract.Contract;
  */
 
 public class MainActivityPresenter implements Contract.Presenter {
-    private Parse parseHtml;
+    private HtmlParser parseHtml;
     private  Contract.View cView;
 
 
