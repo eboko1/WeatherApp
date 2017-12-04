@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Log.i(TAG,"onCreate");
+        Log.d(TAG,"onCreate");
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity
         switch(id){
 
             case R.id.nav_weather:
+                Log.d(TAG,"nav_weather ");
                 fragmentClass = WeatherFragment.class;
                 break;
             case R.id.nav_foreca:
@@ -121,16 +122,17 @@ public class MainActivity extends AppCompatActivity
                 fragmentClass = ForecaFragment.class;
                 break;
             case R.id.nav_sinoptik:
-
+                Log.i(TAG,"nav_sinoptik ");
+                fragmentClass = SinoptikFragment.class;
                 break;
             case R.id.nav_manage:
-
+                Log.i(TAG,"nav_manage ");
                 break;
             case R.id.nav_share:
-
+                Log.i(TAG,"nav_share ");
                 break;
             case R.id.nav_send:
-
+                Log.i(TAG,"nav_send ");
                 break;
 
         }
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fm = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fm.beginTransaction();
     fragmentTransaction.replace(R.id.container,myFragment).commit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
