@@ -1,5 +1,9 @@
 package com.example.vika.weatherapp;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -7,12 +11,28 @@ import java.net.URL;
  */
 
 public class HtmlParser {
-    private URL pUrl;
+    private String pUrl;
 
 
-    public HtmlParser(URL url){
+    public HtmlParser(String url){
         this.pUrl = url;
     }
 
+    private void getHtml(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document document = Jsoup.connect(pUrl).get();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }).start();
+    }
 
 }
